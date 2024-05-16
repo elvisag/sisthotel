@@ -1,0 +1,280 @@
+.proforma-container {
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #CCD1D1;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem !important;
+    padding-bottom: 2rem;
+    margin: 20px;
+  }
+  
+  .proforma-datos {
+    width: 350px;
+    height: 100%;
+    color: #BDC3C7;
+    padding-right: 1rem;
+    justify-content: end;
+    display: flex;
+    margin:0%;
+  }
+  
+  .proforma-titulo {
+    display: flex;
+    background-color: #ccd1d1;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-self: center;
+    width: 400px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid #ccd1d1;
+    padding: 2rem;
+    margin-top: 1rem;
+  }
+  
+  .proforma-info {
+    text-align: left;
+    padding: 1.2rem;
+    border-radius: 10px;
+    height: 100%;
+  }
+  
+  .facturas {
+    color: #828181;
+    margin: 0% !important;
+  }
+  
+  .redes {
+    display: flex;
+    align-items: end;
+    height: 70vh;
+    justify-content: center;
+  }
+  
+  .contenedorDashboard {
+    padding: 2rem;
+    /* padding-right: 4rem !important;
+    padding-left: 295px !important; */
+  }
+  
+  @media (max-width: 599px) {
+    .contenedorDashboard {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+  }
+  
+  .buscardashboard1 {
+    height: 100%;
+    width: 100%;
+    background-color: #128496 !important;
+  }
+  
+  .buscardashboard2 {
+    height: 100%;
+    width: 100%;
+    background-color: #23bf07 !important;
+  }
+  
+  .buscardashboard3 {
+    height: 100%;
+    width: 100%;
+    background-color: #dc3645 !important;
+  }
+  
+  .buscardashboard4 {
+    height: 100%;
+    width: 50%;
+    color: #fff;
+    background-color: #23bf07 !important;
+  }
+  
+  .botones {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  .ladoDerecho {
+    background-color: #151635 !important;
+    border-bottom: 1px solid #1c28396b !important;
+    justify-content: end !important;
+  }
+  
+  @media (max-width: 599px) {
+    .ladoDerecho {
+      justify-content: start !important;
+    }
+  }
+  
+  .cuerpo {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+  
+  .cabecera {
+    display: grid !important;
+    padding: 1px !important;
+  }
+  .modal-titulo{
+    display: grid !important;
+  }
+  
+  .factura-container1 {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .factura-imagen1 {
+    width: 50%; 
+  }
+  
+  .imagen1 {
+    width: 100%;
+    height: auto; 
+  }
+  
+  .factura-datos{
+    width: 100% !important;
+  }
+  
+  .izquierda{
+    padding: 2% !important;
+    border: 1.8px solid #dee2e6;
+    border-radius: 10px;
+  }
+  
+  .derecha{
+    padding: 1rem;
+    border: 1.8px solid #dee2e6;
+    border-radius: 10px;
+    max-height: 300px;
+  }
+  
+  .primero-abajo{
+    padding: 1rem;
+    border: 1.8px solid #dee2e6;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center !important;
+    align-content: center !important;
+  }
+  
+  .contenedorImagen{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 95px;
+  }
+  
+  .texto_factura{
+    font-size: 1rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 100;
+  }
+  
+  .texto_facturas{
+    font-size: 1rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 100;
+    margin: 0% !important;
+  }
+  
+  .modal-header{
+    border: none !important;
+    padding: 0.5rem;
+  }
+  
+  .texto_fac{
+    font-size: 1.8em;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 100;
+  }
+  
+  .tablaItem{
+    font-size: 1.8em;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    padding: 1rem;
+    border-width: var(--bs-border-width);
+    width: 70% !important;
+    padding-left: 2rem !important;
+  }
+  
+  .tablath{
+    font-size: 1.8em;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 100;
+    padding: 1rem;
+    border-width: var(--bs-border-width);
+    width: 30% !important;
+  }
+  
+  .tablaItem1{
+    font-size: 1.8em;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    padding: 1rem;
+    border-width: var(--bs-border-width);
+    width: 70% !important;
+    padding-left: 2rem !important;
+  }
+  
+  .css-zxdg2z {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 24px;
+    display: flex;
+    max-width: 100%;
+  }
+  
+  .Scroll
+  {
+      max-height: 38rem !important;
+      overflow-y: scroll;
+      background-color: rgba(255, 255, 255, 0.15) !important;
+  }
+  
+  @media only screen and (max-width: 480px) {
+      .Scroll{
+          width:100%;
+          height: 100%;
+      }
+    }
+   
+    @media only screen and (max-width: 540px) {
+      .Scroll{
+          width:100%;
+          height: 100%;
+      }
+  }
+  
+  .css-12i7wg6-MuiPaper-root-MuiDrawer-paper{
+    z-index: 2 !important;
+  }
+  
+  @media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 80% !important;
+        margin-right: auto;
+        margin-left: auto;
+    }
+  }
+  
+  .tomate {
+    color: #FAA300 !important;
+    font-weight: 500;
+  }
+  
+  .verde {
+    color: #59886B !important;
+    font-weight: 500;
+  }

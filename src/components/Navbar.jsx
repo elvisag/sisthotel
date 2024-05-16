@@ -28,20 +28,13 @@ const Navbar = ({ children }) => {
     setMostar(false);
   };
 
-  const modalAvatar = () => {
-    navigate("/configuracion");
-    setMostar(false);
-  };
-
   const modalAvatar1 = () => {
     navigate("/");
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiracion");
     setMostar(false);
   };
 
   const permissions = [
-    {nombre:'Inicio', ruta:'/home'},
+    {nombre:'Inicio', ruta:'/'},
     {nombre:'Registro', ruta:'/registro'},
     {nombre:'Dashboard', ruta:'/dashboard'},
   ]
@@ -74,7 +67,6 @@ const Navbar = ({ children }) => {
             open={Boolean(anchorEl)}
             onClose={handleMenuClose}
           >
-            <MenuItem onClick={modalAvatar}>Configuraciones</MenuItem>
             <MenuItem onClick={modalAvatar1}>Salir</MenuItem>
           </Menu>
         </Nav>

@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Registro from './views/registro';
 import Dashboard from './views/dashboard';
 import Home from './views/home';
+import Register from './views/register';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
    <Routes>
    <Route path ='/' element={<Navbar><Home/></Navbar>} />
     <Route path ='/dashboard' element={<Navbar><Dashboard/></Navbar>} />
-    <Route path = '/registro' element={<Navbar><Registro/></Navbar>} />
+    <Route path = '/registro' element={<Navbar><Register/></Navbar>} />
    </Routes>
 
    

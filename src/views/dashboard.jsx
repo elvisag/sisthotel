@@ -1,70 +1,175 @@
-import { useNavigate } from "react-router-dom";
-import Button from '@mui/material/Button';
-import { DataGrid } from '@mui/x-data-grid';
-import Grid from "@mui/material/Grid";
-import Stack from '@mui/material/Stack';
-import Registro from "./registro";
+import { Avatar, Button } from "@mui/material";
+import Grid from '@mui/material/Grid';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import ReplyAllIcon from '@mui/icons-material/ReplyAll';
+import HandymanIcon from '@mui/icons-material/Handyman';
+import { lightBlue, blue, cyan } from '@mui/material/colors';
+import GraficaDona from "../components/GraficoDona";
+import '../css/Hojavida.css';
+import '../css/TextView.css';
+import TarjetaGestionar from "../components/TarjetaGestionar";
+import { useEffect, useState } from "react";
+import { onSnapshot, doc, collection } from "firebase/firestore";
+import { db } from "../firebase/firebase-config";
 
+export default function HojaVidaView() {
+    const [habitaciones, setHabitaciones] = useState(0);
+    const [disponibles, setDisponibles] = useState(0);
+    const [desocupadas, setDesocupadas] = useState(0);
+    const [data, setData] = useState([]);
+    const [datasucur, setDatasucur] = useState([]);
+    const [global, setGlobal] = useState([]);
 
-const columns = [
-    { field: 'id', headerName: 'Id', width: 130 },
-    { field: 'usuario', headerName: 'Huésped', width: 130 },
-    { field: 'ci', headerName: 'Identificación', width: 130 },
-    { field: 'habitacion', headerName: 'Habitación', width: 130 },
-    {
-      field: 'ingreso',
-      headerName: 'Ingreso',
-      type: 'number',
-      width: 130,
-    },
-    {
-      field: 'salida',
-      headerName: 'Salida',
-      type: 'number',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 160,
-      valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
-    },
-  ];
+    const getData = () => {
+        onSnapshot(doc(db, "informacion", "principal"), (doc) => {
+            const habitacionesData = doc.data().habitaciones;
+            setHabitaciones(habitacionesData.length);
+            setDisponibles(habitacionesData.filter(item => item.disponible === true).length);
+            setDesocupadas(habitacionesData.filter(item => item.disponible === false).length);
+        });
+        console.log("esto se lee",habitaciones)
+    };
 
-  const rows = [
-    { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-    { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-    { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-    { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-    { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-    { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-    { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-    { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-    { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-  ];
+    const getDatos = () => {
+        const registroRef = collection(db, "registro");
+        onSnapshot(registroRef, (snapshot) => {
+            const registros = snapshot.docs.map(doc => doc.data());
+            setData(registros);
+        });
 
-export default function Dashboard(){
+        const registroSucur = collection(db, "registroSucursal");
+        onSnapshot(registroSucur, (snapshot) => {
+            const registrosucur = snapshot.docs.map(doc => doc.data());
+            setDatasucur(registrosucur);
+        });
+    };
 
-    const navigate = useNavigate();
-    const regresar = () => {
-            navigate('/registro')
+    useEffect(() => {
+        getData();
+        getDatos();
+    }, []);
 
-    }
-    return(
+    useEffect(() => {
+        const ordenesUnidas = [...data, ...datasucur];
+        setGlobal(ordenesUnidas);
+        console.log(ordenesUnidas);
+    }, [data, datasucur]);
+
+    const claseEstado = (idEstado) => {
+        let sColor = 'blanco';
+        switch (idEstado) {
+            case 'OCUPADO':
+                sColor = 'tomate';
+                break;
+            case 'FINALIZADO':
+                sColor = 'verde';
+                break;
+            default:
+                break;
+        }
+        return sColor;
+    };
+
+    return (
         <>
-       <div style={{ height: 500, width: '90%', margin:'auto' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 10 },
-          },
-        }}
-        pageSizeOptions={[10]}
-        checkboxSelection
-      />
-    </div>
+            <div className="container-test-2">
+                <Grid container spacing={{ xs: 1, md: 4 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+                    <Grid item xs={12} sm={6} md={3.5}>
+                        <Grid container spacing={{ xs: 3, md: 3 }}>
+                            <Grid item xs={12} sm={6} md={12}>
+                                <div className="card12" style={{ height: "100%" }} >
+                                    <div className="header-tarjeta-8">
+                                        <h5 className="titui-ges">Información Hotel</h5>
+                                        <Avatar sx={{ bgcolor: lightBlue[100] }} >
+                                            <WorkHistoryIcon />
+                                        </Avatar>
+                                        </div>
+                                    <div className="card-body-info small">
+                                        <div className="borde-codigo">Zahir Wyndham Hotel</div>
+                                        <h1 className="informacion"><b>Dirección:</b> Av. del Estadio y Florencia Astudillo</h1>
+                                        <h1 className="informacion"><b>Número de habitaciones:</b> {habitaciones}</h1>
+                                        <h1 className="informacion"><b>Categoría:</b> 4 Estrellas</h1>
+                                    </div>
+                                </div>
+                            </Grid>
+                            <Grid item xs={12} sm={6} md={12}>
+                                <div className="card12" >
+                                    <div className="card-body12 small ">
+                                        <GraficaDona labels={["Disponibles", "Ocupadas"]} info={[disponibles, desocupadas]} />
+                                    </div>
+                                </div>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={8.5}>
+                        <Grid container spacing={{ xs: 3 }} >
+                            <Grid item xs={6} sm={6} md={5}>
+                                <TarjetaGestionar
+                                    icon={<WorkHistoryIcon />}
+                                    headerColor={"#ffff"}
+                                    avatarColor={cyan[700]}
+                                    title={'Disponibles'}
+                                    value={disponibles}
+                                />
+                            </Grid>
+                            <Grid item xs={6} sm={6} md={5}>
+                                <TarjetaGestionar
+                                    icon={<WorkHistoryIcon />}
+                                    headerColor={"#ffff"}
+                                    avatarColor={cyan[700]}
+                                    title={'Ocupadas'}
+                                    value={desocupadas}
+                                />
+                            </Grid>
+                           
+                        </Grid>
 
-
-</>
-
+                        <div className="card-tabla-hv"  >
+                            <div className="header-ev">
+                                <h5 className="titulo-ev">Hoja de Vida</h5>
+                                <Avatar sx={{ bgcolor: blue[700] }} >
+                                    <HandymanIcon />
+                                </Avatar>
+                            </div>
+                            <div className="card-tabla-hojav" style={{ overflow: "scroll", height: "535px", }}>
+                                <div >
+                                    <table className='table table-light table-hover'>
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th style={{ textAlign: "center" }}>Hotel</th>
+                                                <th style={{ textAlign: "center" }}>Habitación</th>
+                                                <th style={{ textAlign: "center" }}>Estado</th>
+                                                <th style={{ textAlign: "center" }}>Fecha Ingreso</th>
+                                                <th style={{ textAlign: "center" }}>Fecha Salida</th>
+                                                <th style={{ textAlign: "center" }}>Cliente</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {global.map((item, i) => {
+                                                const currentIndex = i + 1;
+                                                return (
+                                                    <tr key={currentIndex}>
+                                                        <td style={{ textAlign: "center" }}>{currentIndex}</td>
+                                                        <td style={{ textAlign: "center" }}>{item.hotel}</td>
+                                                        <td style={{ textAlign: "center" }}>{item.habitacion ? item.habitacion.codigo : ''}</td>
+                                                        <td className={`center ${claseEstado(item.estado)}`}>{item.estado}</td>
+                                                        <td style={{ textAlign: "center" }}>{(new Date(item.Fingreso).toLocaleDateString('es', { day: "numeric", month: "short", year: "numeric", hour: '2-digit', minute: '2-digit' }))}</td>
+                                                        <td style={{ textAlign: "center" }}>{(new Date(item.Fsalida).toLocaleDateString('es', { day: "numeric", month: "short", year: "numeric", hour: '2-digit', minute: '2-digit' }))}</td>
+                                                        <td style={{ textAlign: "center" }}>{item.usuario}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </Grid>
+                </Grid>
+            </div>
+            <div style={{ height: 40 }}>
+            </div>
+        </>
     );
 }
